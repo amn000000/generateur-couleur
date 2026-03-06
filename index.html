@@ -295,6 +295,83 @@ list.appendChild(card);
 }
 
 loadGames();
+   /* ===============================
+   🐍 SNAKE GAME
+================================ */
+
+function snakeGame(){
+
+const area=document.getElementById("gameArea");
+area.innerHTML="";
+
+let canvas=document.createElement("canvas");
+canvas.width=300;
+canvas.height=300;
+canvas.style.background="black";
+
+area.appendChild(canvas);
+
+let ctx=canvas.getContext("2d");
+
+let box=10;
+let snake=[{x:150,y:150}];
+let direction="RIGHT";
+let food=randomFood();
+
+document.addEventListener("keydown",move);
+
+function randomFood(){
+return{
+x:Math.floor(Math.random()*30)*10,
+y:Math.floor(Math.random()*30)*10
+};
+}
+
+function move(e){
+if(e.key==="ArrowUp") direction="UP";
+if(e.key==="ArrowDown") direction="DOWN";
+if(e.key==="ArrowLeft") direction="LEFT";
+if(e.key==="ArrowRight") direction="RIGHT";
+}
+
+function draw(){
+
+ctx.clearRect(0,0,300,300);
+
+ctx.fillStyle="red";
+ctx.fillRect(food.x,food.y,10,10);
+
+ctx.fillStyle="lime";
+
+for(let part of snake){
+ctx.fillRect(part.x,part.y,10,10);
+}
+
+let head={...snake[0]};
+
+if(direction==="UP") head.y-=box;
+if(direction==="DOWN") head.y+=box;
+if(direction==="LEFT") head.x-=box;
+if(direction==="RIGHT") head.x+=box;
+
+snake.unshift(head);
+
+if(head.x===food.x && head.y===food.y){
+food=randomFood();
+}else{
+snake.pop();
+}
+
+if(head.x<0||head.x>=300||head.y<0||head.y>=300){
+alert("Game Over");
+snake=[{x:150,y:150}];
+}
+
+}
+
+setInterval(draw,100);
+
+}
 </script>
 
 </body>
