@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Super App A Tout Faire 🚀</title>
+
+<title>The Site 🚀</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:#f4f4f4;
+font-family:'Poppins', sans-serif;
+background:linear-gradient(135deg,#f4f4f4,#e8e8ff);
+transition:0.4s;
 }
 
+/* HEADER */
+
 header{
-background:black;
-color:white;
-padding:25px;
 text-align:center;
-font-size:22px;
+padding:40px;
+font-size:32px;
+font-weight:700;
 }
+
+/* NAV */
 
 nav{
 display:flex;
-flex-wrap:wrap;
 justify-content:center;
-gap:10px;
-background:#111;
-padding:15px;
+flex-wrap:wrap;
+gap:15px;
+margin-bottom:20px;
 }
 
 nav button{
-padding:8px 14px;
+padding:10px 18px;
+border-radius:20px;
 border:none;
-border-radius:8px;
+background:black;
+color:white;
 cursor:pointer;
-font-weight:bold;
+transition:0.3s;
 }
+
+nav button:hover{
+transform:scale(1.1);
+background:#333;
+}
+
+/* SECTIONS */
 
 .section{
 display:none;
@@ -47,48 +62,50 @@ display:block;
 
 .card{
 background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-max-width:900px;
+padding:40px;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+max-width:1000px;
 margin:auto;
 }
 
-textarea{
-width:100%;
-height:120px;
-border-radius:10px;
-padding:10px;
+/* Galerie */
+
+.gallery img{
+width:150px;
+border-radius:15px;
+margin:10px;
+}
+
+/* Bouton upload */
+
+input[type="file"]{
+margin-top:10px;
 }
 
 </style>
 </head>
+
 <body>
 
 <header>
-🎉 Bienvenue sur Ton Super Site A Tout Faire
+👋 Bienvenue sur The Site
 </header>
 
 <nav>
-<button onclick="openSection('accueil')">Accueil</button>
-<button onclick="openSection('ia')">🤖 IA</button>
-<button onclick="openSection('palette')">🎨 Palette</button>
-<button onclick="openSection('notes')">📝 Notes</button>
-<button onclick="openSection('jeu')">🎮 Jeu</button>
-<button onclick="openSection('horloge')">⏰ Horloge</button>
-<button onclick="openSection('musique')">🎵 Musique</button>
-<button onclick="openSection('meteo')">🌦 Météo</button>
-<button onclick="openSection('galerie')">🖼 Galerie</button>
-<button onclick="openSection('inspiration')">🔥 Inspiration</button>
-<button onclick="openSection('parametres')">⚙️ Paramètres</button>
+<button onclick="openSection('home')">Home</button>
+<button onclick="openSection('ia')">IA</button>
+<button onclick="openSection('games')">🎮 Jeux</button>
+<button onclick="openSection('music')">🎵 Musique</button>
+<button onclick="openSection('gallery')">🖼 Galerie</button>
 </nav>
 
-<!-- ACCUEIL -->
+<!-- HOME -->
 
-<div id="accueil" class="section active">
+<div id="home" class="section active">
 <div class="card">
-<h2>👋 Bienvenue</h2>
-<p>Choisis une catégorie dans le menu.</p>
+<h2>✨ Un site plus humain</h2>
+<p>Explore les catégories et amuse-toi 🚀</p>
 </div>
 </div>
 
@@ -96,103 +113,73 @@ padding:10px;
 
 <div id="ia" class="section">
 <div class="card">
-<h2>🤖 Chat IA Simple</h2>
-<input id="question" placeholder="Pose une question..." />
+<h2>🤖 IA Simple</h2>
+
+<input id="question" placeholder="Pose une question..." style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;">
+<br><br>
 <button onclick="repondre()">Envoyer</button>
+
 <p id="reponse"></p>
+
 </div>
 </div>
 
-<!-- PALETTE -->
+<!-- JEUX -->
 
-<div id="palette" class="section">
+<div id="games" class="section">
 <div class="card">
-<h2>🎨 Générateur Couleur</h2>
-<button onclick="changerCouleur()">Générer couleur</button>
-<p id="colorCode"></p>
-</div>
-</div>
+<h2>🎮 Jeux</h2>
 
-<!-- NOTES -->
-
-<div id="notes" class="section">
-<div class="card">
-<h2>📝 Bloc Notes</h2>
-<textarea id="note"></textarea>
-</div>
-</div>
-
-<!-- JEU -->
-
-<div id="jeu" class="section">
-<div class="card">
-<h2>🎮 Jeu - Devine le nombre</h2>
-<input type="number" id="guess" min="1" max="10">
-<button onclick="verifier()">Tester</button>
+<p>Jeu 1 - Devine le nombre</p>
+<input type="number" id="guess">
+<button onclick="jeu1()">Tester</button>
 <p id="result"></p>
-</div>
-</div>
 
-<!-- HORLOGE -->
+<hr>
 
-<div id="horloge" class="section">
-<div class="card">
-<h2>⏰ Horloge</h2>
-<p id="time"></p>
+<p>Jeu 2 - Click Counter</p>
+<button onclick="clicker()">Clique moi</button>
+<p id="count">0</p>
+
+<hr>
+
+<p>Plus de jeux à ajouter ici 🔥</p>
+
 </div>
 </div>
 
 <!-- MUSIQUE -->
 
-<div id="musique" class="section">
+<div id="music" class="section">
 <div class="card">
-<h2>🎵 Musique</h2>
-<p>Tu peux mettre un lecteur Spotify / YouTube ici.</p>
-</div>
-</div>
+<h2>🎵 Lecteur Musique</h2>
 
-<!-- METEO -->
+<iframe style="border-radius:20px"
+src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
+width="100%" height="380"
+allow="encrypted-media">
+</iframe>
 
-<div id="meteo" class="section">
-<div class="card">
-<h2>🌦 Météo</h2>
-<p>Connexion API météo possible ici.</p>
 </div>
 </div>
 
 <!-- GALERIE -->
 
-<div id="galerie" class="section">
+<div id="gallery" class="section">
 <div class="card">
 <h2>🖼 Galerie</h2>
-<p>Tu peux afficher des images ici.</p>
-</div>
-</div>
 
-<!-- INSPIRATION -->
+<input type="file" id="upload" accept="image/*">
+<br><br>
 
-<div id="inspiration" class="section">
-<div class="card">
-<h2>🔥 Inspiration</h2>
-<p id="quote"></p>
-<button onclick="newQuote()">Nouvelle citation</button>
-</div>
-</div>
+<div class="gallery" id="galleryContainer"></div>
 
-<!-- PARAMETRES -->
-
-<div id="parametres" class="section">
-<div class="card">
-<h2>⚙️ Paramètres</h2>
-<button onclick="document.body.classList.toggle('dark')">
-Mode sombre
-</button>
 </div>
 </div>
 
 <script>
 
-/* Navigation */
+/* NAVIGATION */
 
 function openSection(id){
 
@@ -201,7 +188,6 @@ document.querySelectorAll(".section")
 
 document.getElementById(id)
 .classList.add("active");
-
 }
 
 /* IA */
@@ -209,64 +195,50 @@ document.getElementById(id)
 function repondre(){
 
 let q=document.getElementById("question").value;
-document.getElementById("reponse").textContent=
-"🤖 Réponse automatique : " + q + " ? Intéressant !";
+
+document.getElementById("reponse")
+.textContent="🤖 Interessant : " + q;
 
 }
 
-/* Palette */
-
-function changerCouleur(){
-
-let couleur="#" + Math.floor(Math.random()*16777215).toString(16);
-
-document.body.style.background=couleur;
-document.getElementById("colorCode").textContent=couleur;
-
-}
-
-/* Jeu */
+/* JEUX */
 
 let secret=Math.floor(Math.random()*10)+1;
 
-function verifier(){
+function jeu1(){
 
 let guess=document.getElementById("guess").value;
-let result=document.getElementById("result");
 
 if(guess==secret){
-result.textContent="🎉 Gagné !";
+document.getElementById("result").textContent="🎉 Gagné !";
 secret=Math.floor(Math.random()*10)+1;
 }else{
-result.textContent="❌ Faux";
+document.getElementById("result").textContent="❌ Faux";
 }
 
 }
 
-/* Horloge */
+let counter=0;
 
-function updateTime(){
-document.getElementById("time").textContent=
-new Date().toLocaleString();
+function clicker(){
+counter++;
+document.getElementById("count").textContent=counter;
 }
 
-setInterval(updateTime,1000);
-updateTime();
+/* GALERIE */
 
-/* Citation */
+document.getElementById("upload")
+.addEventListener("change",function(event){
 
-let quotes=[
-"Crois en toi.",
-"Code, crée, innove.",
-"Ne jamais abandonner."
-];
+let file=event.target.files[0];
 
-function newQuote(){
-document.getElementById("quote").textContent=
-quotes[Math.floor(Math.random()*quotes.length)];
+if(file){
+let img=document.createElement("img");
+img.src=URL.createObjectURL(file);
+document.getElementById("galleryContainer").appendChild(img);
 }
 
-newQuote();
+});
 
 </script>
 
