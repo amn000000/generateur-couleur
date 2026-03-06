@@ -1,46 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Générateur de couleur</title>
+<title>Générateur de palette</title>
 
 <style>
-body {
-font-family: Arial;
-text-align: center;
-margin-top: 100px;
-transition: background 0.5s;
+body{
+font-family:Arial;
+text-align:center;
+margin-top:50px;
+background:#f4f4f4;
 }
 
-button {
-padding: 15px 25px;
-font-size: 18px;
-border: none;
-border-radius: 10px;
-cursor: pointer;
+.palette{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-bottom:30px;
+}
+
+.couleur{
+width:120px;
+height:120px;
+border-radius:10px;
+display:flex;
+align-items:flex-end;
+justify-content:center;
+color:white;
+font-weight:bold;
+cursor:pointer;
+padding:10px;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:black;
+color:white;
 }
 </style>
-
 </head>
 
 <body>
 
-<h1>Générateur de couleur 🎨</h1>
+<h1>🎨 Générateur de palette</h1>
 
-<button onclick="changerCouleur()">Changer la couleur</button>
+<div class="palette" id="palette"></div>
 
-<p id="codeCouleur">Code couleur : #ffffff</p>
+<button onclick="genererPalette()">Nouvelle palette</button>
+
+<p>Clique une couleur pour la copier</p>
 
 <script>
-function changerCouleur(){
 
-let couleur = "#" + Math.floor(Math.random()*16777215).toString(16);
+function randomColor(){
+return "#" + Math.floor(Math.random()*16777215).toString(16);
+}
 
-document.body.style.backgroundColor = couleur;
+function genererPalette(){
 
-document.getElementById("codeCouleur").textContent =
-"Code couleur : " + couleur;
+let palette=document.getElementById("palette");
+palette.innerHTML="";
+
+for(let i=0;i<5;i++){
+
+let couleur=randomColor();
+
+let div=document.createElement("div");
+div.className="couleur";
+div.style.background=couleur;
+div.textContent=couleur;
+
+div.onclick=function(){
+navigator.clipboard.writeText(couleur);
+alert("Couleur copiée : "+couleur);
+}
+
+palette.appendChild(div);
 
 }
+
+}
+
+genererPalette();
+
 </script>
 
 </body>
