@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>✨ The Ultimate Hub</title>
 
-<title>The Site Ultra 🚀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -11,306 +12,237 @@
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#f5f7ff,#e8e8ff);
-transition:0.4s;
+background:linear-gradient(135deg,#1e1e2f,#2d2d4f,#141414);
+color:white;
+text-align:center;
+overflow-x:hidden;
 }
+
+/* HEADER */
 
 header{
-text-align:center;
-padding:40px;
-font-size:34px;
+padding:60px 20px;
+font-size:40px;
 font-weight:700;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
 }
 
-/* NAV */
+/* CATEGORIES */
 
-nav{
+.container{
 display:flex;
-justify-content:center;
 flex-wrap:wrap;
-gap:15px;
-margin-bottom:30px;
+justify-content:center;
+gap:30px;
+padding:60px 20px;
 }
 
-nav button{
-padding:10px 18px;
-border:none;
-border-radius:20px;
-background:black;
-color:white;
+.card{
+width:250px;
+height:180px;
+border-radius:25px;
+background:linear-gradient(145deg,#ffffff22,#ffffff05);
+backdrop-filter:blur(20px);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+font-weight:500;
 cursor:pointer;
-transition:0.3s;
+transition:0.4s;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-nav button:hover{
-transform:scale(1.1);
+.card:hover{
+transform:translateY(-15px) scale(1.05);
+background:linear-gradient(145deg,#ff6b6b,#4e73ff);
 }
 
-/* SECTIONS */
+/* SECTION CONTENT */
 
 .section{
 display:none;
-padding:30px;
+padding:50px;
+animation:fade 0.5s ease-in-out;
 }
 
 .active{
 display:block;
 }
 
-.card{
-background:white;
-padding:40px;
-border-radius:25px;
-box-shadow:0 15px 40px rgba(0,0,0,0.08);
-max-width:1000px;
-margin:auto;
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-/* GALERIE */
+/* BUTTON */
 
-.gallery img{
-width:140px;
-border-radius:15px;
-margin:10px;
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#ff6b6b;
+color:white;
+font-weight:bold;
+cursor:pointer;
 transition:0.3s;
 }
 
-.gallery img:hover{
+button:hover{
+background:#4e73ff;
 transform:scale(1.1);
 }
 
-/* SNAKE */
-
-canvas{
-background:black;
+textarea{
+width:90%;
+height:120px;
 border-radius:15px;
+padding:15px;
+border:none;
 }
 
 </style>
 </head>
-
 <body>
 
 <header>
-👋 Welcome To The Ultimate Site
+✨ THE ULTIMATE HUB
+<p style="font-size:18px;font-weight:300;">Un site magnifique avec des catégories stylées</p>
 </header>
 
-<nav>
-<button onclick="openSection('home')">Home</button>
-<button onclick="openSection('ia')">🤖 IA</button>
-<button onclick="openSection('games')">🎮 Jeux</button>
-<button onclick="openSection('music')">🎵 Musique</button>
-<button onclick="openSection('gallery')">🖼 Galerie</button>
-</nav>
+<!-- CATEGORIES -->
 
-<!-- HOME -->
+<div class="container">
 
-<div id="home" class="section active">
-<div class="card">
-<h2>🚀 Dashboard</h2>
+<div class="card" onclick="openSection('ia')">🤖 IA</div>
+<div class="card" onclick="openSection('games')">🎮 Jeux</div>
+<div class="card" onclick="openSection('music')">🎵 Musique</div>
+<div class="card" onclick="openSection('gallery')">🖼 Galerie</div>
+<div class="card" onclick="openSection('notes')">📝 Notes</div>
+<div class="card" onclick="openSection('extra')">🚀 Extra</div>
 
-<p>Nombre d’images : <span id="imgCount">0</span></p>
-<p>Score Snake : <span id="snakeScore">0</span></p>
-
-</div>
 </div>
 
 <!-- IA -->
 
 <div id="ia" class="section">
-<div class="card">
-<h2>🤖 IA Intelligente</h2>
-
-<input id="question" placeholder="Pose ta question..." style="width:100%;padding:10px;border-radius:10px;">
+<h2>🤖 IA Simple</h2>
+<input id="question" placeholder="Pose une question..." style="padding:10px;border-radius:15px;border:none;width:60%;">
 <br><br>
-<button onclick="askAI()">Envoyer</button>
-
-<p id="aiAnswer"></p>
-
-</div>
+<button onclick="ask()">Envoyer</button>
+<p id="answer"></p>
 </div>
 
 <!-- JEUX -->
 
 <div id="games" class="section">
-<div class="card">
-
-<h2>🎮 Jeux</h2>
-
-<h3>Snake 🐍</h3>
-<canvas id="snake" width="300" height="300"></canvas>
-<p>Score : <span id="score">0</span></p>
-
-<hr>
-
-<h3>Click Game</h3>
-<button onclick="clickGame()">Clique Moi</button>
-<p id="clickScore">0</p>
-
-</div>
+<h2>🎮 Mini Jeu</h2>
+<p>Devine le nombre</p>
+<input type="number" id="guess">
+<button onclick="play()">Tester</button>
+<p id="result"></p>
 </div>
 
 <!-- MUSIQUE -->
 
 <div id="music" class="section">
-<div class="card">
 <h2>🎵 Musique</h2>
 
-<iframe width="100%" height="380"
-src="https://www.youtube.com/embed?listType=playlist&list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj"
-style="border-radius:20px;">
+<iframe style="border-radius:20px"
+width="80%" height="350"
+src="https://www.youtube.com/embed?listType=playlist&list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj">
 </iframe>
 
-</div>
 </div>
 
 <!-- GALERIE -->
 
 <div id="gallery" class="section">
-<div class="card">
+<h2>🖼 Galerie</h2>
 
-<h2>🖼 Galerie Stylée</h2>
-
-<input type="file" id="upload" accept="image/*">
-<br><br>
-
-<div class="gallery" id="galleryContainer"></div>
+<input type="file" accept="image/*" onchange="addImage(event)">
+<div id="galleryContainer"></div>
 
 </div>
+
+<!-- NOTES -->
+
+<div id="notes" class="section">
+<h2>📝 Notes</h2>
+<textarea placeholder="Écris quelque chose..."></textarea>
+</div>
+
+<!-- EXTRA -->
+
+<div id="extra" class="section">
+<h2>🚀 Extra</h2>
+<p>Section vide prête pour 50 fonctionnalités 😈</p>
 </div>
 
 <script>
 
-/* NAV */
+/* NAVIGATION */
 
 function openSection(id){
 
 document.querySelectorAll(".section")
 .forEach(s=>s.classList.remove("active"));
 
-document.getElementById(id).classList.add("active");
+document.getElementById(id)
+.classList.add("active");
+
 }
 
-/* IA SIMPLE MAIS INTELLIGENTE */
+/* IA */
 
-function askAI(){
+function ask(){
 
 let q=document.getElementById("question").value.toLowerCase();
 
 let response="🤖 Intéressant...";
 
-if(q.includes("bonjour")) response="👋 Bonjour !";
-if(q.includes("ça va")) response="😊 Oui ça va et toi ?";
+if(q.includes("bonjour")) response="👋 Bonjour !!";
 if(q.includes("qui")) response="Je suis une IA simple créée dans ce site.";
 
-document.getElementById("aiAnswer").textContent=response;
+document.getElementById("answer").textContent=response;
 
 }
 
-/* GALERIE */
+/* GAME */
 
-document.getElementById("upload")
-.addEventListener("change",function(e){
+let secret=Math.floor(Math.random()*10)+1;
 
-let file=e.target.files[0];
+function play(){
+
+let guess=document.getElementById("guess").value;
+
+if(guess==secret){
+document.getElementById("result").textContent="🎉 Gagné !";
+secret=Math.floor(Math.random()*10)+1;
+}else{
+document.getElementById("result").textContent="❌ Faux";
+}
+
+}
+
+/* GALLERY */
+
+function addImage(event){
+
+let file=event.target.files[0];
 
 if(file){
-
 let img=document.createElement("img");
 img.src=URL.createObjectURL(file);
-
-img.onclick=function(){
-img.remove();
-updateCount();
-}
+img.style.width="150px";
+img.style.borderRadius="15px";
+img.style.margin="10px";
 
 document.getElementById("galleryContainer").appendChild(img);
-
-updateCount();
-}
-
-});
-
-function updateCount(){
-document.getElementById("imgCount")
-.textContent=document.querySelectorAll(".gallery img").length;
-}
-
-/* CLICK GAME */
-
-let clickScore=0;
-
-function clickGame(){
-clickScore++;
-document.getElementById("clickScore").textContent=clickScore;
-}
-
-/* SNAKE */
-
-let canvas=document.getElementById("snake");
-let ctx=canvas.getContext("2d");
-
-let box=10;
-let snake=[{x:150,y:150}];
-let direction="RIGHT";
-let food=randomFood();
-let score=0;
-
-document.addEventListener("keydown",changeDir);
-
-function randomFood(){
-return{
-x:Math.floor(Math.random()*30)*10,
-y:Math.floor(Math.random()*30)*10
-};
-}
-
-function changeDir(e){
-if(e.key=="ArrowUp") direction="UP";
-if(e.key=="ArrowDown") direction="DOWN";
-if(e.key=="ArrowLeft") direction="LEFT";
-if(e.key=="ArrowRight") direction="RIGHT";
-}
-
-function draw(){
-
-ctx.clearRect(0,0,300,300);
-
-ctx.fillStyle="red";
-ctx.fillRect(food.x,food.y,10,10);
-
-ctx.fillStyle="lime";
-
-for(let part of snake){
-ctx.fillRect(part.x,part.y,10,10);
-}
-
-let head={...snake[0]};
-
-if(direction=="UP") head.y-=10;
-if(direction=="DOWN") head.y+=10;
-if(direction=="LEFT") head.x-=10;
-if(direction=="RIGHT") head.x+=10;
-
-snake.unshift(head);
-
-if(head.x==food.x && head.y==food.y){
-score++;
-document.getElementById("score").textContent=score;
-food=randomFood();
-}else{
-snake.pop();
-}
-
-if(head.x<0||head.x>=300||head.y<0||head.y>=300){
-snake=[{x:150,y:150}];
-score=0;
-document.getElementById("score").textContent=0;
 }
 
 }
-
-setInterval(draw,100);
 
 </script>
 
