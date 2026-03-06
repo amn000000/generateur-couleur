@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Générateur de couleur</title>
+
+<style>
+body {
+font-family: Arial;
+text-align: center;
+margin-top: 100px;
+transition: background 0.5s;
+}
+
+button {
+padding: 15px 25px;
+font-size: 18px;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Générateur de couleur 🎨</h1>
+
+<button onclick="changerCouleur()">Changer la couleur</button>
+
+<p id="codeCouleur">Code couleur : #ffffff</p>
+
+<script>
+function changerCouleur(){
+
+let couleur = "#" + Math.floor(Math.random()*16777215).toString(16);
+
+document.body.style.backgroundColor = couleur;
+
+document.getElementById("codeCouleur").textContent =
+"Code couleur : " + couleur;
+
+}
+</script>
+
+</body>
+</html>
