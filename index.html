@@ -1,59 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Générateur de palette</title>
+<title>Palette Pro 🎨</title>
 
 <style>
+
 body{
 font-family:Arial;
 text-align:center;
-margin-top:50px;
+margin:0;
+padding:40px;
+transition:0.4s;
 background:#f4f4f4;
+}
+
+.dark{
+background:#111;
+color:white;
+}
+
+.controls{
+margin-bottom:20px;
 }
 
 .palette{
 display:flex;
 justify-content:center;
+flex-wrap:wrap;
 gap:20px;
-margin-bottom:30px;
+margin-top:20px;
 }
 
 .couleur{
-width:120px;
-height:120px;
-border-radius:10px;
+width:140px;
+height:140px;
+border-radius:15px;
 display:flex;
-align-items:flex-end;
-justify-content:center;
+flex-direction:column;
+justify-content:flex-end;
+align-items:center;
 color:white;
 font-weight:bold;
 cursor:pointer;
-padding:10px;
+position:relative;
+transition:0.3s;
+}
+
+.couleur.locked{
+border:4px solid gold;
 }
 
 button{
-padding:15px 30px;
-font-size:18px;
+padding:10px 20px;
 border:none;
 border-radius:10px;
 cursor:pointer;
-background:black;
-color:white;
+font-size:16px;
+margin:5px;
 }
+
+input[type=range]{
+width:200px;
+}
+
+.lock{
+position:absolute;
+top:10px;
+right:10px;
+background:black;
+padding:5px;
+border-radius:50%;
+font-size:12px;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>🎨 Générateur de palette</h1>
+<h1>🎨 Palette Pro</h1>
+
+<div class="controls">
+
+<label>Nombre de couleurs :</label>
+<input type="range" min="1" max="10" value="5" id="slider">
+<span id="nb">5</span>
+
+<br><br>
+
+<button onclick="genererPalette()">Nouvelle palette</button>
+<button onclick="copierPalette()">📦 Copier toute la palette</button>
+<button onclick="toggleTheme()">🌙 Mode</button>
+
+</div>
 
 <div class="palette" id="palette"></div>
 
-<button onclick="genererPalette()">Nouvelle palette</button>
-
-<p>Clique une couleur pour la copier</p>
-
 <script>
+
+let lockedColors = {};
+
+document.getElementById("slider").oninput = function(){
+document.getElementById("nb").textContent=this.value;
+genererPalette();
+};
 
 function randomColor(){
 return "#" + Math.floor(Math.random()*16777215).toString(16);
@@ -64,26 +114,76 @@ function genererPalette(){
 let palette=document.getElementById("palette");
 palette.innerHTML="";
 
-for(let i=0;i<5;i++){
+let nb=document.getElementById("slider").value;
 
-let couleur=randomColor();
+for(let i=0;i<nb;i++){
+
+let couleur=lockedColors[i] || randomColor();
 
 let div=document.createElement("div");
 div.className="couleur";
 div.style.background=couleur;
 div.textContent=couleur;
 
-div.onclick=function(){
-navigator.clipboard.writeText(couleur);
-alert("Couleur copiée : "+couleur);
+if(lockedColors[i]){
+div.classList.add("locked");
 }
 
+div.onclick=function(){
+navigator.clipboard.writeText(couleur);
+alert("Copié : "+couleur);
+}
+
+let lock=document.createElement("div");
+lock.className="lock";
+lock.textContent="🔒";
+
+lock.onclick=function(e){
+e.stopPropagation();
+
+if(lockedColors[i]){
+delete lockedColors[i];
+}else{
+lockedColors[i]=couleur;
+}
+
+genererPalette();
+}
+
+div.appendChild(lock);
 palette.appendChild(div);
 
 }
 
+savePalette();
+
 }
 
+function copierPalette(){
+let couleurs=[...document.querySelectorAll(".couleur")]
+.map(el=>el.textContent)
+.join(", ");
+
+navigator.clipboard.writeText(couleurs);
+alert("Palette copiée !");
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
+
+function savePalette(){
+localStorage.setItem("palette",JSON.stringify(lockedColors));
+}
+
+function loadPalette(){
+let saved=localStorage.getItem("palette");
+if(saved){
+lockedColors=JSON.parse(saved);
+}
+}
+
+loadPalette();
 genererPalette();
 
 </script>
