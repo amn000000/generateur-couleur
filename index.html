@@ -9,39 +9,32 @@ body{
 margin:0;
 font-family:Arial;
 background:#f4f4f4;
-text-align:center;
 }
-
-/* HEADER */
 
 header{
 background:black;
 color:white;
-padding:20px;
+padding:25px;
+text-align:center;
 font-size:22px;
 }
 
-/* NAV BAR */
-
 nav{
 display:flex;
-justify-content:center;
 flex-wrap:wrap;
-gap:15px;
+justify-content:center;
+gap:10px;
 background:#111;
 padding:15px;
 }
 
 nav button{
-padding:8px 15px;
+padding:8px 14px;
 border:none;
 border-radius:8px;
 cursor:pointer;
-background:white;
 font-weight:bold;
 }
-
-/* SECTIONS */
 
 .section{
 display:none;
@@ -57,8 +50,15 @@ background:white;
 padding:30px;
 border-radius:20px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
-max-width:800px;
+max-width:900px;
 margin:auto;
+}
+
+textarea{
+width:100%;
+height:120px;
+border-radius:10px;
+padding:10px;
 }
 
 </style>
@@ -66,8 +66,7 @@ margin:auto;
 <body>
 
 <header>
-🎉 Bienvenue sur le Site A Tout Faire  
-🍪 Avec Cookies & Smooth Design
+🎉 Bienvenue sur Ton Super Site A Tout Faire
 </header>
 
 <nav>
@@ -88,9 +87,8 @@ margin:auto;
 
 <div id="accueil" class="section active">
 <div class="card">
-<h2>Bienvenue 👋</h2>
-<p>Ce site contient plein d’outils dans différentes catégories.</p>
-<p>Utilise la barre en haut pour naviguer 🚀</p>
+<h2>👋 Bienvenue</h2>
+<p>Choisis une catégorie dans le menu.</p>
 </div>
 </div>
 
@@ -98,8 +96,10 @@ margin:auto;
 
 <div id="ia" class="section">
 <div class="card">
-<h2>🤖 Chat IA (Version Simple)</h2>
-<p>Tu peux ajouter un vrai chatbot ici plus tard.</p>
+<h2>🤖 Chat IA Simple</h2>
+<input id="question" placeholder="Pose une question..." />
+<button onclick="repondre()">Envoyer</button>
+<p id="reponse"></p>
 </div>
 </div>
 
@@ -107,8 +107,9 @@ margin:auto;
 
 <div id="palette" class="section">
 <div class="card">
-<h2>🎨 Palette</h2>
-<p>On va mettre ton générateur ici plus tard</p>
+<h2>🎨 Générateur Couleur</h2>
+<button onclick="changerCouleur()">Générer couleur</button>
+<p id="colorCode"></p>
 </div>
 </div>
 
@@ -117,7 +118,7 @@ margin:auto;
 <div id="notes" class="section">
 <div class="card">
 <h2>📝 Bloc Notes</h2>
-<textarea rows="6" style="width:100%;"></textarea>
+<textarea id="note"></textarea>
 </div>
 </div>
 
@@ -125,8 +126,10 @@ margin:auto;
 
 <div id="jeu" class="section">
 <div class="card">
-<h2>🎮 Mini Jeu</h2>
-<p>Jeu à ajouter plus tard</p>
+<h2>🎮 Jeu - Devine le nombre</h2>
+<input type="number" id="guess" min="1" max="10">
+<button onclick="verifier()">Tester</button>
+<p id="result"></p>
 </div>
 </div>
 
@@ -139,7 +142,53 @@ margin:auto;
 </div>
 </div>
 
-<!-- SCRIPT -->
+<!-- MUSIQUE -->
+
+<div id="musique" class="section">
+<div class="card">
+<h2>🎵 Musique</h2>
+<p>Tu peux mettre un lecteur Spotify / YouTube ici.</p>
+</div>
+</div>
+
+<!-- METEO -->
+
+<div id="meteo" class="section">
+<div class="card">
+<h2>🌦 Météo</h2>
+<p>Connexion API météo possible ici.</p>
+</div>
+</div>
+
+<!-- GALERIE -->
+
+<div id="galerie" class="section">
+<div class="card">
+<h2>🖼 Galerie</h2>
+<p>Tu peux afficher des images ici.</p>
+</div>
+</div>
+
+<!-- INSPIRATION -->
+
+<div id="inspiration" class="section">
+<div class="card">
+<h2>🔥 Inspiration</h2>
+<p id="quote"></p>
+<button onclick="newQuote()">Nouvelle citation</button>
+</div>
+</div>
+
+<!-- PARAMETRES -->
+
+<div id="parametres" class="section">
+<div class="card">
+<h2>⚙️ Paramètres</h2>
+<button onclick="document.body.classList.toggle('dark')">
+Mode sombre
+</button>
+</div>
+</div>
 
 <script>
 
@@ -155,15 +204,69 @@ document.getElementById(id)
 
 }
 
+/* IA */
+
+function repondre(){
+
+let q=document.getElementById("question").value;
+document.getElementById("reponse").textContent=
+"🤖 Réponse automatique : " + q + " ? Intéressant !";
+
+}
+
+/* Palette */
+
+function changerCouleur(){
+
+let couleur="#" + Math.floor(Math.random()*16777215).toString(16);
+
+document.body.style.background=couleur;
+document.getElementById("colorCode").textContent=couleur;
+
+}
+
+/* Jeu */
+
+let secret=Math.floor(Math.random()*10)+1;
+
+function verifier(){
+
+let guess=document.getElementById("guess").value;
+let result=document.getElementById("result");
+
+if(guess==secret){
+result.textContent="🎉 Gagné !";
+secret=Math.floor(Math.random()*10)+1;
+}else{
+result.textContent="❌ Faux";
+}
+
+}
+
 /* Horloge */
 
 function updateTime(){
-document.getElementById("time").textContent =
+document.getElementById("time").textContent=
 new Date().toLocaleString();
 }
 
 setInterval(updateTime,1000);
 updateTime();
+
+/* Citation */
+
+let quotes=[
+"Crois en toi.",
+"Code, crée, innove.",
+"Ne jamais abandonner."
+];
+
+function newQuote(){
+document.getElementById("quote").textContent=
+quotes[Math.floor(Math.random()*quotes.length)];
+}
+
+newQuote();
 
 </script>
 
