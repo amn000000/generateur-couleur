@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Super Dashboard 🎨</title>
+<title>Super App A Tout Faire 🚀</title>
 
 <style>
 
@@ -9,242 +9,161 @@ body{
 margin:0;
 font-family:Arial;
 background:#f4f4f4;
-transition:0.4s;
+text-align:center;
 }
 
-.dark{
-background:#111;
-color:white;
-}
+/* HEADER */
 
 header{
 background:black;
 color:white;
 padding:20px;
-text-align:center;
 font-size:22px;
 }
 
-.section{
-background:white;
-margin:30px auto;
-padding:20px;
-width:90%;
-max-width:1000px;
-border-radius:15px;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
+/* NAV BAR */
+
+nav{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:15px;
+background:#111;
+padding:15px;
 }
 
-.dark .section{
-background:#1e1e1e;
-}
-
-h2{
-margin-top:0;
-}
-
-button{
-padding:10px 20px;
+nav button{
+padding:8px 15px;
 border:none;
 border-radius:8px;
 cursor:pointer;
-margin:5px;
-font-size:14px;
-}
-
-input,textarea{
-padding:10px;
-width:100%;
-margin-top:10px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-.palette{
-display:flex;
-flex-wrap:wrap;
-gap:15px;
-margin-top:15px;
-}
-
-.couleur{
-width:120px;
-height:120px;
-border-radius:12px;
-display:flex;
-align-items:flex-end;
-justify-content:center;
-color:white;
+background:white;
 font-weight:bold;
-cursor:pointer;
-position:relative;
 }
 
-.lock{
-position:absolute;
-top:8px;
-right:8px;
-font-size:14px;
+/* SECTIONS */
+
+.section{
+display:none;
+padding:40px;
+}
+
+.active{
+display:block;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+max-width:800px;
+margin:auto;
 }
 
 </style>
 </head>
-
 <body>
 
 <header>
-🎨 Super Dashboard Perso
-<button onclick="toggleTheme()">🌙 Mode</button>
+🎉 Bienvenue sur le Site A Tout Faire  
+🍪 Avec Cookies & Smooth Design
 </header>
 
+<nav>
+<button onclick="openSection('accueil')">Accueil</button>
+<button onclick="openSection('ia')">🤖 IA</button>
+<button onclick="openSection('palette')">🎨 Palette</button>
+<button onclick="openSection('notes')">📝 Notes</button>
+<button onclick="openSection('jeu')">🎮 Jeu</button>
+<button onclick="openSection('horloge')">⏰ Horloge</button>
+<button onclick="openSection('musique')">🎵 Musique</button>
+<button onclick="openSection('meteo')">🌦 Météo</button>
+<button onclick="openSection('galerie')">🖼 Galerie</button>
+<button onclick="openSection('inspiration')">🔥 Inspiration</button>
+<button onclick="openSection('parametres')">⚙️ Paramètres</button>
+</nav>
+
+<!-- ACCUEIL -->
+
+<div id="accueil" class="section active">
+<div class="card">
+<h2>Bienvenue 👋</h2>
+<p>Ce site contient plein d’outils dans différentes catégories.</p>
+<p>Utilise la barre en haut pour naviguer 🚀</p>
+</div>
+</div>
+
+<!-- IA -->
+
+<div id="ia" class="section">
+<div class="card">
+<h2>🤖 Chat IA (Version Simple)</h2>
+<p>Tu peux ajouter un vrai chatbot ici plus tard.</p>
+</div>
+</div>
+
 <!-- PALETTE -->
-<div class="section">
-<h2>Palette Couleurs</h2>
 
-<label>Nombre de couleurs</label>
-<input type="range" min="1" max="10" value="5" id="slider">
-<span id="nb">5</span>
+<div id="palette" class="section">
+<div class="card">
+<h2>🎨 Palette</h2>
+<p>On va mettre ton générateur ici plus tard</p>
+</div>
+</div>
 
-<button onclick="genererPalette()">Nouvelle palette</button>
-<button onclick="copierPalette()">📦 Copier palette</button>
+<!-- NOTES -->
 
-<div class="palette" id="palette"></div>
+<div id="notes" class="section">
+<div class="card">
+<h2>📝 Bloc Notes</h2>
+<textarea rows="6" style="width:100%;"></textarea>
+</div>
+</div>
+
+<!-- JEU -->
+
+<div id="jeu" class="section">
+<div class="card">
+<h2>🎮 Mini Jeu</h2>
+<p>Jeu à ajouter plus tard</p>
+</div>
 </div>
 
 <!-- HORLOGE -->
-<div class="section">
-<h2>Horloge</h2>
-<h3 id="clock"></h3>
+
+<div id="horloge" class="section">
+<div class="card">
+<h2>⏰ Horloge</h2>
+<p id="time"></p>
+</div>
 </div>
 
-<!-- BLOC NOTE -->
-<div class="section">
-<h2>Bloc Notes</h2>
-<textarea id="note" rows="6" placeholder="Écris ici..."></textarea>
-</div>
-
-<!-- MINI JEU -->
-<div class="section">
-<h2>Mini Jeu - Devine le nombre</h2>
-
-<p>Devine un nombre entre 1 et 10</p>
-<input type="number" id="guess">
-<button onclick="verifier()">Tester</button>
-<p id="result"></p>
-
-</div>
+<!-- SCRIPT -->
 
 <script>
 
-/* THEME */
+/* Navigation */
 
-function toggleTheme(){
-document.body.classList.toggle("dark");
-}
+function openSection(id){
 
-/* PALETTE */
+document.querySelectorAll(".section")
+.forEach(sec => sec.classList.remove("active"));
 
-let lockedColors={};
-
-document.getElementById("slider").oninput=function(){
-document.getElementById("nb").textContent=this.value;
-genererPalette();
-};
-
-function randomColor(){
-return "#" + Math.floor(Math.random()*16777215).toString(16);
-}
-
-function genererPalette(){
-
-let palette=document.getElementById("palette");
-palette.innerHTML="";
-
-let nb=document.getElementById("slider").value;
-
-for(let i=0;i<nb;i++){
-
-let couleur=lockedColors[i] || randomColor();
-
-let div=document.createElement("div");
-div.className="couleur";
-div.style.background=couleur;
-div.textContent=couleur;
-
-if(lockedColors[i]){
-div.style.border="3px solid gold";
-}
-
-div.onclick=function(){
-navigator.clipboard.writeText(couleur);
-alert("Copié : "+couleur);
-}
-
-let lock=document.createElement("div");
-lock.className="lock";
-lock.textContent="🔒";
-
-lock.onclick=function(e){
-e.stopPropagation();
-
-if(lockedColors[i]){
-delete lockedColors[i];
-}else{
-lockedColors[i]=couleur;
-}
-
-genererPalette();
-}
-
-div.appendChild(lock);
-palette.appendChild(div);
-}
-
-localStorage.setItem("palette",JSON.stringify(lockedColors));
-}
-
-function copierPalette(){
-
-let couleurs=[...document.querySelectorAll(".couleur")]
-.map(el=>el.textContent)
-.join(", ");
-
-navigator.clipboard.writeText(couleurs);
-alert("Palette copiée !");
-}
-
-/* HORLOGE */
-
-function updateClock(){
-let now=new Date();
-document.getElementById("clock").textContent=
-now.toLocaleTimeString() + " - " + now.toLocaleDateString();
-}
-
-setInterval(updateClock,1000);
-updateClock();
-
-/* MINI JEU */
-
-let secret=Math.floor(Math.random()*10)+1;
-
-function verifier(){
-
-let guess=document.getElementById("guess").value;
-let result=document.getElementById("result");
-
-if(guess==secret){
-result.textContent="🎉 Bravo !";
-secret=Math.floor(Math.random()*10)+1;
-}else{
-result.textContent="❌ Faux ! Essaie encore.";
-}
+document.getElementById(id)
+.classList.add("active");
 
 }
 
-/* CHARGEMENT */
+/* Horloge */
 
-genererPalette();
+function updateTime(){
+document.getElementById("time").textContent =
+new Date().toLocaleString();
+}
+
+setInterval(updateTime,1000);
+updateTime();
 
 </script>
 
