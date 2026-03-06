@@ -136,12 +136,14 @@ border:none;
 
 <!-- JEUX -->
 
-<div id="games" class="section">
-<h2>🎮 Mini Jeu</h2>
-<p>Devine le nombre</p>
-<input type="number" id="guess">
-<button onclick="play()">Tester</button>
-<p id="result"></p>
+<div id="Games" class="section">
+<div class="card">
+<h2>🎮 20 Jeux</h2>
+
+<div id="gameList" class="game-grid"></div>
+<div id="gameArea"></div>
+
+</div>
 </div>
 
 <!-- MUSIQUE -->
@@ -243,7 +245,56 @@ document.getElementById("galleryContainer").appendChild(img);
 }
 
 }
+/* ================================
+   SYSTEME 20 JEUX
+================================ */
 
+const games = [];
+
+/* --- JEUX 1 à 10 (Vrais) --- */
+
+games.push({name:"Snake", action:snakeGame});
+games.push({name:"Clicker", action:clickGame});
+games.push({name:"Guess Number", action:guessGame});
+games.push({name:"TicTacToe", action:tictactoe});
+games.push({name:"Memory", action:memoryGame});
+games.push({name:"Reaction", action:reactionGame});
+games.push({name:"Typing", action:typingGame});
+games.push({name:"Rock Paper", action:rpsGame});
+games.push({name:"Math Quiz", action:mathGame});
+games.push({name:"Quiz", action:quizGame});
+
+/* --- JEUX 11 à 20 (Templates) --- */
+
+for(let i=11;i<=20;i++){
+games.push({
+name:"Game "+i,
+action:()=>alert("Jeu "+i+" encore à développer 😎")
+});
+}
+
+/* GENERATEUR */
+
+function loadGames(){
+
+let list=document.getElementById("gameList");
+list.innerHTML="";
+
+games.forEach(game=>{
+
+let card=document.createElement("div");
+card.className="game-card";
+card.textContent=game.name;
+
+card.onclick=()=>game.action();
+
+list.appendChild(card);
+
+});
+
+}
+
+loadGames();
 </script>
 
 </body>
